@@ -25,16 +25,16 @@ ingredients_list = st.multiselect(
     , max_selections = 5
 )
 
-#New section to display smoothiefroot nutritition information
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response.json())
-
 if ingredients_list:
 
     ingredients_string = ''
 
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
+        #New section to display smoothiefroot nutritition information
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+        #sf_df = st.text(smoothiefroot_response.json(), use_container_width = True)
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width = True)
 
     #st.write(ingredients_string)
 
