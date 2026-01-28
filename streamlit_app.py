@@ -1,5 +1,6 @@
 # Import python packages
 import streamlit as st
+import requests
 #from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
@@ -19,10 +20,15 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
 ingredients_list = st.multiselect(
-    'Coose up to 5 ingredients:'
+    'Choose up to 5 ingredients:'
     , my_dataframe
     , max_selections = 5
 )
+
+#New section to display smoothiefroot nutritition information
+smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+st.text(smoothiefroot_response)
+
 if ingredients_list:
 
     ingredients_string = ''
